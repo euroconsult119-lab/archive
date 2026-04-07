@@ -83,11 +83,7 @@
             z-index: -3;
             opacity: 0.85;
             mix-blend-mode: screen; 
-            /* تعديل الألوان لتصبح أخضر تركوازي */
-     filter: hue-rotate(-20deg) saturate(220%) brightness(115%);
-            pointer-events: none;
-            border-radius: 1rem;
-        }
+
         /* Animated Glowing Orbs */
         .glow-orb {
             position: fixed;
@@ -132,7 +128,7 @@
             to { background-position: 200% center; }
         }
 
-        /* Custom Glass Dropdowns (Replacing Native Select) */
+        /* Custom Glass Dropdowns */
         .custom-dropdown-container {
             position: relative;
             width: 100%;
@@ -154,6 +150,19 @@
             box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.05), 0 8px 32px rgba(0, 0, 0, 0.3);
             font-size: 1.125rem;
             user-select: none;
+        }
+
+        .custom-dropdown-selected.error {
+            border-color: #ef4444;
+            box-shadow: inset 0 0 15px rgba(239, 68, 68, 0.2);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
         }
 
         .custom-dropdown-selected:hover, .custom-dropdown-selected.active {
@@ -202,31 +211,17 @@
 
         .custom-dropdown-option:hover {
             background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), transparent);
-            color: #FBE8A6; /* Gold Light */
-            padding-right: 1.8rem; /* Subtle indent effect on hover */
+            color: #FBE8A6;
+            padding-right: 1.8rem;
             border-right: 3px solid #D4AF37;
         }
 
-        /* Custom Scrollbar for the Glass Dropdown */
-        .custom-dropdown-options::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-dropdown-options::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-        .custom-dropdown-options::-webkit-scrollbar-thumb {
-            background: rgba(212, 175, 55, 0.4);
-            border-radius: 8px;
-        }
-        .custom-dropdown-options::-webkit-scrollbar-thumb:hover {
-            background: rgba(212, 175, 55, 0.8);
-        }
+        .custom-dropdown-options::-webkit-scrollbar { width: 6px; }
+        .custom-dropdown-options::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 8px; }
+        .custom-dropdown-options::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.4); border-radius: 8px; }
+        .custom-dropdown-options::-webkit-scrollbar-thumb:hover { background: rgba(212, 175, 55, 0.8); }
 
-        /* Original select is hidden visually but stays in DOM for form submission */
-        .native-select-hidden {
-            display: none;
-        }
+        .native-select-hidden { display: none; }
 
         /* File Upload Zones */
         .file-drop-area {
@@ -261,12 +256,17 @@
             opacity: 0;
         }
         .btn-neon:hover::after { opacity: 1; }
-        .btn-neon:hover {
+        .btn-neon:hover:not(:disabled) {
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
             transform: translateY(-2px);
         }
+        .btn-neon:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
-        /* Loading Spinner */
         .loader {
             border: 3px solid rgba(255,255,255,0.3);
             border-radius: 50%;
@@ -277,6 +277,9 @@
             vertical-align: middle;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Progress Bar Transition */
+        #progressBar { transition: width 0.4s ease; }
     </style>
 </head>
 <body class="antialiased font-sans">
@@ -285,13 +288,12 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <!-- Background Effects -->
-    <video autoplay loop muted playsinline class="video-background">
+ <video autoplay loop muted playsinline class="video-background">
         <source src="GettyImages-1328574341.mp4" type="video/mp4">
     </video>
  <video autoplay loop muted playsinline class="video-background2">
         <source src="GettyImages-1328574341.mp4" type="video/mp4">
     </video>
-    
     <div id="particles-js"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
@@ -325,20 +327,18 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     <!-- Employee Select -->
-                    <div class="form-group">
+                    <div class="form-group" id="empGroup">
                         <label class="block text-brand-neon font-semibold mb-2 text-lg"><i class="fa-solid fa-user-tie text-brand-gold ml-2"></i>اسم الموظف</label>
-                        <select id="employeeName" name="employeeName" required class="native-select-hidden">
+                        <select id="employeeName" name="employeeName" class="native-select-hidden">
                             <option value="" disabled selected>اختر اسم المهندس/الموظف...</option>
-                            <!-- Options populated via JS -->
                         </select>
                     </div>
 
                     <!-- Output Select -->
-                    <div class="form-group">
+                    <div class="form-group" id="outGroup">
                         <label class="block text-brand-neon font-semibold mb-2 text-lg"><i class="fa-solid fa-folder-tree text-brand-gold ml-2"></i>المخرج</label>
-                        <select id="outputName" name="outputName" required class="native-select-hidden">
+                        <select id="outputName" name="outputName" class="native-select-hidden">
                             <option value="" disabled selected>اختر المخرج الخاص بك...</option>
-                            <!-- Options populated via JS -->
                         </select>
                     </div>
                 </div>
@@ -352,7 +352,7 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('pptxFile').click()">
                             <i class="fa-regular fa-file-powerpoint text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="pptxLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغة .pptx فقط (يمكن تحديد أكثر من ملف)</span>
+                            <span class="text-gray-400 text-sm mt-2">صيغة .pptx فقط (متعدد)</span>
                             <input type="file" id="pptxFile" name="pptxFile" accept=".pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation" multiple class="file-input">
                         </div>
                     </div>
@@ -365,7 +365,7 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('pdfFile').click()">
                             <i class="fa-regular fa-file-pdf text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="pdfLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغة .pdf فقط (يمكن تحديد أكثر من ملف)</span>
+                            <span class="text-gray-400 text-sm mt-2">صيغة .pdf فقط (متعدد)</span>
                             <input type="file" id="pdfFile" name="pdfFile" accept=".pdf,application/pdf" multiple class="file-input">
                         </div>
                     </div>
@@ -380,7 +380,7 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('cadFile').click()">
                             <i class="fa-regular fa-file-code text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="cadLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغ .dwg, .dxf (يمكن تحديد أكثر من ملف)</span>
+                            <span class="text-gray-400 text-sm mt-2">صيغ .dwg, .dxf (متعدد)</span>
                             <input type="file" id="cadFile" name="cadFile" accept=".dwg,.dxf" multiple class="file-input">
                         </div>
                     </div>
@@ -393,7 +393,7 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('imgFile').click()">
                             <i class="fa-regular fa-images text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="imgLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغ .jpg, .png, .jpeg (يمكن تحديد أكثر من ملف)</span>
+                            <span class="text-gray-400 text-sm mt-2">صيغ .jpg, .png, .jpeg (متعدد)</span>
                             <input type="file" id="imgFile" name="imgFile" accept="image/png, image/jpeg, image/jpg" multiple class="file-input">
                         </div>
                     </div>
@@ -401,6 +401,20 @@
 
                 <!-- Alert Messages -->
                 <div id="alertBox" class="hidden mb-6 p-4 rounded-xl text-center font-bold transition-all duration-300"></div>
+
+                <!-- Progress Bar Container -->
+                <div id="progressContainer" class="hidden w-full mb-6 glass-card p-4 rounded-xl border border-brand-light/30">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-brand-goldLight text-sm font-bold" id="progressText">جاري تهيئة الملفات...</span>
+                        <span class="text-brand-neon text-sm font-bold" id="progressPercent">0%</span>
+                    </div>
+                    <div class="w-full bg-brand-dark rounded-full h-3 border border-brand-main">
+                        <div id="progressBar" class="bg-gradient-to-l from-brand-gold to-brand-neon h-3 rounded-full relative overflow-hidden" style="width: 0%">
+                            <!-- Shimmer effect on progress bar -->
+                            <div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Submit Button -->
                 <div class="text-center mt-4">
@@ -425,9 +439,39 @@
         </p>
     </footer>
 
+    <!-- Success Modal Popup -->
+    <div id="successModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-md" onclick="closeModal()"></div>
+        <!-- Modal Content -->
+        <div class="glass-card w-11/12 max-w-md p-8 rounded-2xl relative z-10 text-center transform scale-95 opacity-0 transition-all duration-300 border-2 border-brand-neon" id="modalContent">
+            
+            <div class="w-20 h-20 mx-auto bg-green-500/20 rounded-full flex items-center justify-center mb-6 border-2 border-brand-neon shadow-[0_0_20px_rgba(16,185,129,0.5)]">
+                <i class="fa-solid fa-check text-4xl text-brand-neon"></i>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-white mb-2" id="modalTitle">شكراً لك!</h2>
+            <p class="text-gray-300 mb-6 font-medium">تمت أرشفة جميع الملفات بنجاح في المجلدات المخصصة.</p>
+            
+            <div class="bg-brand-dark/50 p-4 rounded-xl mb-6 border border-brand-light/40 text-right space-y-2">
+                <p class="text-sm text-brand-goldLight flex items-center justify-between">
+                    <span><i class="fa-solid fa-hashtag ml-1"></i> رقم العملية:</span>
+                    <span id="modalRef" class="text-white font-mono tracking-wider"></span>
+                </p>
+                <p class="text-sm text-brand-goldLight flex items-center justify-between">
+                    <span><i class="fa-regular fa-clock ml-1"></i> وقت الأرشفة:</span>
+                    <span id="modalTime" class="text-white font-mono"></span>
+                </p>
+            </div>
+            
+            <button onclick="closeModal()" class="btn-neon w-full py-3 rounded-xl text-white font-bold text-lg">
+                متابعة العمل <i class="fa-solid fa-arrow-left mr-2"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- Data and Logic -->
     <script>
-        // Data Arrays
         const employees = [
             "د عمرو شحاته", "م احمد فايد", "م رشا مختار", "م علي عليكة", 
             "م عمر عادل", "م عمار الشلفي", "م منتصر احمد", "ا اشرف فطاني", 
@@ -468,7 +512,7 @@
                 optionsList.className = 'custom-dropdown-options';
                 
                 Array.from(select.options).forEach((option, index) => {
-                    if (index === 0 && option.disabled) return; // Skip placeholder
+                    if (index === 0 && option.disabled) return;
                     
                     const optionDiv = document.createElement('div');
                     optionDiv.className = 'custom-dropdown-option';
@@ -478,12 +522,11 @@
                         select.value = option.value;
                         const spanText = selectedDisplay.querySelector('span');
                         spanText.innerText = option.text;
-                        spanText.className = 'truncate font-bold text-white'; // Highlight selected
+                        spanText.className = 'truncate font-bold text-white';
+                        selectedDisplay.classList.remove('error'); // Remove error style on selection
                         optionsList.classList.remove('open');
                         selectedDisplay.classList.remove('active');
                         selectedDisplay.querySelector('i').style.transform = 'rotate(0deg)';
-                        
-                        // Fire change event on original select (if needed by validation)
                         select.dispatchEvent(new Event('change'));
                     });
                     optionsList.appendChild(optionDiv);
@@ -493,7 +536,6 @@
                 
                 selectedDisplay.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    // Close others
                     document.querySelectorAll('.custom-dropdown-options').forEach(list => {
                         if (list !== optionsList) list.classList.remove('open');
                     });
@@ -517,7 +559,6 @@
                 });
             });
             
-            // Close when clicking outside
             document.addEventListener('click', () => {
                 document.querySelectorAll('.custom-dropdown-options').forEach(list => list.classList.remove('open'));
                 document.querySelectorAll('.custom-dropdown-selected').forEach(box => {
@@ -527,7 +568,6 @@
             });
         }
 
-        // Populate Dropdowns & Init
         window.onload = () => {
             const empSelect = document.getElementById('employeeName');
             const outSelect = document.getElementById('outputName');
@@ -544,17 +584,45 @@
                 outSelect.appendChild(opt);
             });
 
-            // Initialize the custom glass dropdowns AFTER populating data
             initCustomDropdowns();
         };
 
-        // File Input Handlers (Display names)
+        // File Input Validation and Handlers
+        const allowedExtensions = {
+            'pptxFile': ['pptx'],
+            'pdfFile': ['pdf'],
+            'cadFile': ['dwg', 'dxf'],
+            'imgFile': ['jpg', 'jpeg', 'png']
+        };
+
         const setupFileInput = (inputId, labelId) => {
             const input = document.getElementById(inputId);
             const label = document.getElementById(labelId);
             
             input.addEventListener('change', function() {
                 if (this.files && this.files.length > 0) {
+                    // Validation Check
+                    let isValid = true;
+                    const allowedExts = allowedExtensions[inputId];
+                    
+                    for (let i = 0; i < this.files.length; i++) {
+                        const fileName = this.files[i].name.toLowerCase();
+                        const ext = fileName.split('.').pop();
+                        if (!allowedExts.includes(ext)) {
+                            isValid = false;
+                            break;
+                        }
+                    }
+
+                    if (!isValid) {
+                        showAlert(`<i class="fa-solid fa-ban ml-2"></i> نوع الملف غير مدعوم في هذا الحقل! يرجى رفع صيغ (${allowedExts.join(', ')}) فقط.`, 'error');
+                        this.value = ''; // Clear input
+                        label.innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
+                        return;
+                    }
+
+                    // Success Display
+                    document.getElementById('alertBox').classList.add('hidden'); // clear old alerts
                     if (this.files.length === 1) {
                         label.innerHTML = `<span class="text-brand-goldLight font-bold">${this.files[0].name}</span>`;
                     } else {
@@ -571,7 +639,6 @@
         setupFileInput('cadFile', 'cadLabel');
         setupFileInput('imgFile', 'imgLabel');
 
-        // Drag and Drop Effects
         const dropAreas = document.querySelectorAll('.file-drop-area');
         dropAreas.forEach(area => {
             area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('dragover'); });
@@ -587,7 +654,6 @@
             });
         });
 
-        // Convert File to Base64 (Required for Google Apps Script)
         const getBase64 = (file) => {
             return new Promise((resolve, reject) => {
                 if (!file) { resolve(null); return; }
@@ -602,29 +668,124 @@
             });
         };
 
-        // Convert Multiple Files to Base64 Array
         const getBase64Array = async (fileList) => {
             if (!fileList || fileList.length === 0) return [];
             const promises = Array.from(fileList).map(file => getBase64(file));
             return Promise.all(promises);
         };
 
-        // UI Alert Helper
         const showAlert = (msg, type) => {
             const box = document.getElementById('alertBox');
             box.innerHTML = msg;
             box.className = `mb-6 p-4 rounded-xl text-center font-bold transition-all duration-300 block ${type === 'success' ? 'bg-green-500/20 text-green-400 border border-green-500' : 'bg-red-500/20 text-red-400 border border-red-500'}`;
         };
 
+        // Progress Bar Logic
+        let progressInterval;
+        function startProgress() {
+            const container = document.getElementById('progressContainer');
+            const bar = document.getElementById('progressBar');
+            const pct = document.getElementById('progressPercent');
+            const txt = document.getElementById('progressText');
+            
+            container.classList.remove('hidden');
+            let width = 0;
+            bar.style.width = '0%';
+            
+            progressInterval = setInterval(() => {
+                if (width >= 90) {
+                    clearInterval(progressInterval);
+                } else {
+                    // Smart random increment depending on current width
+                    const increment = width > 70 ? Math.random() * 2 : Math.random() * 8;
+                    width += increment;
+                    if(width > 90) width = 90;
+                    
+                    bar.style.width = width + '%';
+                    pct.innerText = Math.floor(width) + '%';
+                    
+                    if(width < 30) txt.innerText = 'جاري ضغط ومعالجة الملفات...';
+                    else if(width < 60) txt.innerText = 'جاري الرفع لخوادم درايف...';
+                    else txt.innerText = 'جاري توثيق البيانات...';
+                }
+            }, 500);
+        }
+
+        function finishProgress() {
+            clearInterval(progressInterval);
+            const bar = document.getElementById('progressBar');
+            const pct = document.getElementById('progressPercent');
+            const txt = document.getElementById('progressText');
+            bar.style.width = '100%';
+            pct.innerText = '100%';
+            txt.innerText = 'اكتملت العملية!';
+        }
+
+        // Modal Logic
+        function showModal(empName) {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            const title = document.getElementById('modalTitle');
+            const timeSpan = document.getElementById('modalTime');
+            const refSpan = document.getElementById('modalRef');
+            
+            title.innerText = `شكراً لك، ${empName}!`;
+            
+            const now = new Date();
+            const formatTime = now.toLocaleString('ar-SA', { hour: 'numeric', minute: 'numeric', hour12: true });
+            const formatDate = now.toLocaleString('ar-SA', { year: 'numeric', month: 'numeric', day: 'numeric' });
+            
+            timeSpan.innerText = `${formatDate} - ${formatTime}`;
+            refSpan.innerText = 'REQ-' + Math.floor(100000 + Math.random() * 900000);
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('progressContainer').classList.add('hidden');
+            }, 300);
+        }
+
         // Form Submission
         document.getElementById('archiveForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Custom Dropdown Validation Check
+            // Validation: Employee and Output
             const empVal = document.getElementById('employeeName').value;
             const outVal = document.getElementById('outputName').value;
-            if(!empVal || !outVal) {
-                showAlert('<i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء اختيار اسم الموظف والمخرج.', 'error');
+            
+            const empBox = document.querySelector('#empGroup .custom-dropdown-selected');
+            const outBox = document.querySelector('#outGroup .custom-dropdown-selected');
+            
+            let hasError = false;
+            
+            if(!empVal) {
+                empBox.classList.remove('error');
+                void empBox.offsetWidth; // إجبار المتصفح على إعادة تشغيل الأنيميشن (Reflow)
+                empBox.classList.add('error');
+                hasError = true;
+            }
+            if(!outVal) {
+                outBox.classList.remove('error');
+                void outBox.offsetWidth; // إجبار المتصفح على إعادة تشغيل الأنيميشن (Reflow)
+                outBox.classList.add('error');
+                hasError = true;
+            }
+
+            if(hasError) {
+                showAlert('<i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء اختيار اسم الموظف والمخرج لإتمام العملية.', 'error');
                 return;
             }
 
@@ -639,20 +800,22 @@
             const hasImg = document.getElementById('imgFile').files.length > 0;
 
             if (!hasPptx && !hasPdf && !hasCad && !hasImg) {
-                showAlert('<i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء رفع ملف واحد على الأقل لتتم الأرشفة.', 'error');
+                showAlert('<i class="fa-solid fa-box-open ml-2"></i> لا يوجد ملفات! الرجاء رفع ملف واحد على الأقل لتتم الأرشفة.', 'error');
                 return;
             }
 
             btn.disabled = true;
-            btnText.innerText = 'جاري الرفع والأرشفة...';
+            btnText.innerText = 'جاري التنفيذ...';
             loader.classList.remove('hidden');
             alertBox.classList.add('hidden');
+            
+            // Start Progress Animation
+            startProgress();
 
             try {
                 const formData = {
                     employee: empVal,
                     output: outVal,
-                    // ارسال الملفات كمصفوفة بيانات
                     pptxFiles: await getBase64Array(document.getElementById('pptxFile').files),
                     pdfFiles: await getBase64Array(document.getElementById('pdfFile').files),
                     cadFiles: await getBase64Array(document.getElementById('cadFile').files),
@@ -667,23 +830,30 @@
                     body: JSON.stringify(formData)
                 });
 
-                showAlert('<i class="fa-solid fa-circle-check ml-2"></i> تم رفع الملفات وأرشفتها بنجاح!', 'success');
+                // Jump progress to 100%
+                finishProgress();
                 
-                // Reset Form
-                document.getElementById('archiveForm').reset();
-                document.getElementById('pptxLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
-                document.getElementById('pdfLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
-                document.getElementById('cadLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
-                document.getElementById('imgLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
-                
-                // Reset custom dropdowns text
-                document.querySelectorAll('.custom-dropdown-selected span').forEach((span, i) => {
-                    span.innerText = i === 0 ? "اختر اسم المهندس/الموظف..." : "اختر المخرج الخاص بك...";
-                    span.className = "truncate text-gray-300";
-                });
+                // Show Success Pop-up with employee name
+                setTimeout(() => {
+                    showModal(empVal);
+                    
+                    // Reset Form Elements
+                    document.getElementById('archiveForm').reset();
+                    document.getElementById('pptxLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
+                    document.getElementById('pdfLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
+                    document.getElementById('cadLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
+                    document.getElementById('imgLabel').innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
+                    
+                    document.querySelectorAll('.custom-dropdown-selected span').forEach((span, i) => {
+                        span.innerText = i === 0 ? "اختر اسم المهندس/الموظف..." : "اختر المخرج الخاص بك...";
+                        span.className = "truncate text-gray-300";
+                    });
+                }, 800);
 
             } catch (error) {
                 console.error(error);
+                clearInterval(progressInterval);
+                document.getElementById('progressContainer').classList.add('hidden');
                 showAlert('<i class="fa-solid fa-triangle-exclamation ml-2"></i> حدث خطأ أثناء الرفع. تأكد من اتصالك بالانترنت والمحاولة مرة أخرى.', 'error');
             } finally {
                 btn.disabled = false;
@@ -692,7 +862,6 @@
             }
         });
 
-        // Particles.js Initialization
         particlesJS('particles-js', {
             "particles": {
                 "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
