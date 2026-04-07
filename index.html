@@ -67,7 +67,7 @@
             opacity: 0.85;
             mix-blend-mode: screen; 
             /* تعديل الألوان لتصبح أخضر تركوازي */
-         
+            filter: hue-rotate(-20deg) saturate(220%) brightness(115%) drop-shadow(0 0 15px rgba(45, 212, 191, 0.4));
             pointer-events: none;
             border-radius: 1rem;
         }
@@ -332,8 +332,8 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('pptxFile').click()">
                             <i class="fa-regular fa-file-powerpoint text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="pptxLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغة .pptx فقط</span>
-                            <input type="file" id="pptxFile" name="pptxFile" accept=".pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation" class="file-input">
+                            <span class="text-gray-400 text-sm mt-2">صيغة .pptx فقط (يمكن تحديد أكثر من ملف)</span>
+                            <input type="file" id="pptxFile" name="pptxFile" accept=".pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation" multiple class="file-input">
                         </div>
                     </div>
 
@@ -345,8 +345,8 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('pdfFile').click()">
                             <i class="fa-regular fa-file-pdf text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="pdfLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغة .pdf فقط</span>
-                            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf,application/pdf" class="file-input">
+                            <span class="text-gray-400 text-sm mt-2">صيغة .pdf فقط (يمكن تحديد أكثر من ملف)</span>
+                            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf,application/pdf" multiple class="file-input">
                         </div>
                     </div>
                 </div>
@@ -360,8 +360,8 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('cadFile').click()">
                             <i class="fa-regular fa-file-code text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="cadLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغ .dwg, .dxf</span>
-                            <input type="file" id="cadFile" name="cadFile" accept=".dwg,.dxf" class="file-input">
+                            <span class="text-gray-400 text-sm mt-2">صيغ .dwg, .dxf (يمكن تحديد أكثر من ملف)</span>
+                            <input type="file" id="cadFile" name="cadFile" accept=".dwg,.dxf" multiple class="file-input">
                         </div>
                     </div>
 
@@ -373,8 +373,8 @@
                         <div class="file-drop-area rounded-xl p-8 text-center flex flex-col items-center justify-center h-48" onclick="document.getElementById('imgFile').click()">
                             <i class="fa-regular fa-images text-5xl text-brand-glow mb-4"></i>
                             <span class="text-gray-200 font-medium" id="imgLabel">اضغط هنا أو اسحب الملف لإفلاته</span>
-                            <span class="text-gray-400 text-sm mt-2">صيغ .jpg, .png, .jpeg</span>
-                            <input type="file" id="imgFile" name="imgFile" accept="image/png, image/jpeg, image/jpg" class="file-input">
+                            <span class="text-gray-400 text-sm mt-2">صيغ .jpg, .png, .jpeg (يمكن تحديد أكثر من ملف)</span>
+                            <input type="file" id="imgFile" name="imgFile" accept="image/png, image/jpeg, image/jpg" multiple class="file-input">
                         </div>
                     </div>
                 </div>
@@ -534,8 +534,12 @@
             const label = document.getElementById(labelId);
             
             input.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    label.innerHTML = `<span class="text-brand-goldLight font-bold">${this.files[0].name}</span>`;
+                if (this.files && this.files.length > 0) {
+                    if (this.files.length === 1) {
+                        label.innerHTML = `<span class="text-brand-goldLight font-bold">${this.files[0].name}</span>`;
+                    } else {
+                        label.innerHTML = `<span class="text-brand-goldLight font-bold">تم اختيار ${this.files.length} ملفات</span>`;
+                    }
                 } else {
                     label.innerHTML = 'اضغط هنا أو اسحب الملف لإفلاته';
                 }
@@ -576,6 +580,13 @@
                 });
                 reader.onerror = error => reject(error);
             });
+        };
+
+        // Convert Multiple Files to Base64 Array
+        const getBase64Array = async (fileList) => {
+            if (!fileList || fileList.length === 0) return [];
+            const promises = Array.from(fileList).map(file => getBase64(file));
+            return Promise.all(promises);
         };
 
         // UI Alert Helper
@@ -621,10 +632,11 @@
                 const formData = {
                     employee: empVal,
                     output: outVal,
-                    pptx: await getBase64(document.getElementById('pptxFile').files[0]),
-                    pdf: await getBase64(document.getElementById('pdfFile').files[0]),
-                    cad: await getBase64(document.getElementById('cadFile').files[0]),
-                    img: await getBase64(document.getElementById('imgFile').files[0])
+                    // ارسال الملفات كمصفوفة بيانات
+                    pptxFiles: await getBase64Array(document.getElementById('pptxFile').files),
+                    pdfFiles: await getBase64Array(document.getElementById('pdfFile').files),
+                    cadFiles: await getBase64Array(document.getElementById('cadFile').files),
+                    imgFiles: await getBase64Array(document.getElementById('imgFile').files)
                 };
 
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
