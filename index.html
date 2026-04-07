@@ -71,7 +71,23 @@
             pointer-events: none;
             border-radius: 1rem;
         }
-
+ .video-background2 {
+            position: fixed;
+            bottom: 250px; 
+            right: 20px;
+            top: auto; 
+            width: 25vw; 
+            min-width: 450px; 
+            max-width: 550px;
+            height: auto;
+            z-index: -3;
+            opacity: 0.85;
+            mix-blend-mode: screen; 
+            /* تعديل الألوان لتصبح أخضر تركوازي */
+     filter: hue-rotate(-20deg) saturate(220%) brightness(115%);
+            pointer-events: none;
+            border-radius: 1rem;
+        }
         /* Animated Glowing Orbs */
         .glow-orb {
             position: fixed;
@@ -272,6 +288,10 @@
     <video autoplay loop muted playsinline class="video-background">
         <source src="GettyImages-1328574341.mp4" type="video/mp4">
     </video>
+ <video autoplay loop muted playsinline class="video-background2">
+        <source src="GettyImages-1328574341.mp4" type="video/mp4">
+    </video>
+    
     <div id="particles-js"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
