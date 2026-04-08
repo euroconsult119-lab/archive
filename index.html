@@ -57,7 +57,7 @@
                     .video-background {
             position: fixed;
             bottom: 250px; 
-            left: 20px;
+            left: 10px;
             top: auto; 
             width: 25vw; 
             min-width: 450px; 
@@ -72,9 +72,10 @@
             border-radius: 1rem;
         }
  .video-background2 {
-            position: fixed;
+    
+             position: fixed;
             bottom: 250px; 
-            right: 20px;
+           right: 10px;
             top: auto; 
             width: 25vw; 
             min-width: 450px; 
@@ -83,6 +84,10 @@
             z-index: -3;
             opacity: 0.85;
             mix-blend-mode: screen; 
+            /* تعديل الألوان لتصبح أخضر تركوازي */
+     filter: hue-rotate(-20deg) saturate(220%) brightness(115%);
+            pointer-events: none;
+            border-radius: 1rem;
  }
 
         /* Animated Glowing Orbs */
