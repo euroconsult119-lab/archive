@@ -43,7 +43,6 @@
             min-height: 100vh;
         }
 
-        /* Particles Network Background */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -53,11 +52,10 @@
             z-index: -2;
         }
 
-        /* Video Background Layer */
-                    .video-background {
+        .video-background {
             position: fixed;
             bottom: 250px; 
-            left: 5px;
+            left: 10px;
             top: auto; 
             width: 25vw; 
             min-width: 450px; 
@@ -66,16 +64,15 @@
             z-index: -3;
             opacity: 0.85;
             mix-blend-mode: screen; 
-            /* تعديل الألوان لتصبح أخضر تركوازي */
             filter: hue-rotate(-20deg) saturate(220%) brightness(115%);
             pointer-events: none;
             border-radius: 1rem;
         }
- .video-background2 {
-    
-             position: fixed;
+
+        .video-background2 {
+            position: fixed;
             bottom: 250px; 
-           right: 5px;
+            right: 10px;
             top: auto; 
             width: 25vw; 
             min-width: 450px; 
@@ -84,13 +81,11 @@
             z-index: -3;
             opacity: 0.85;
             mix-blend-mode: screen; 
-            /* تعديل الألوان لتصبح أخضر تركوازي */
             filter: hue-rotate(-20deg) saturate(220%) brightness(115%);
             pointer-events: none;
             border-radius: 1rem;
- }
+        }
 
-        /* Animated Glowing Orbs */
         .glow-orb {
             position: fixed;
             border-radius: 50%;
@@ -108,7 +103,6 @@
             100% { transform: translate(50px, 50px) scale(1.2); }
         }
 
-        /* Glassmorphism Form Container */
         .glass-card {
             background: rgba(6, 78, 59, 0.1); 
             backdrop-filter: blur(6px); 
@@ -119,7 +113,6 @@
             overflow: hidden;
         }
         
-        /* Neon Border Top Effect */
         .glass-card::before {
             content: '';
             position: absolute;
@@ -134,7 +127,6 @@
             to { background-position: 200% center; }
         }
 
-        /* Custom Glass Dropdowns */
         .custom-dropdown-container {
             position: relative;
             width: 100%;
@@ -213,10 +205,7 @@
             font-size: 1rem;
         }
 
-        .custom-dropdown-option:last-child {
-            border-bottom: none;
-        }
-
+        .custom-dropdown-option:last-child { border-bottom: none; }
         .custom-dropdown-option:hover {
             background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), transparent);
             color: #FBE8A6;
@@ -226,7 +215,6 @@
 
         .native-select-hidden { display: none; }
 
-        /* File Upload Zones */
         .file-drop-area {
             border: 2px dashed rgba(16, 185, 129, 0.4);
             background: rgba(2, 44, 34, 0.15);
@@ -251,7 +239,6 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        /* Neon Button */
         .btn-neon {
             background: linear-gradient(45deg, #047857, #10b981);
             position: relative;
@@ -291,32 +278,28 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Progress Bar Transition */
         #progressBar { transition: width 0.4s ease; }
-        
-        /* Smooth transitions for sections */
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="antialiased font-sans">
 
-    <!-- Particles Script -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <!-- Background Effects -->
-      <video autoplay loop muted playsinline class="video-background">
+    <!-- Background Videos -->
+    <video autoplay loop muted playsinline class="video-background">
         <source src="GettyImages-1328574341.mp4" type="video/mp4">
     </video>
- <video autoplay loop muted playsinline class="video-background2">
+    <video autoplay loop muted playsinline class="video-background2">
         <source src="GettyImages-1328574341.mp4" type="video/mp4">
     </video>
+
     <div id="particles-js"></div>
     <div class="glow-orb orb-1"></div>
     <div class="glow-orb orb-2"></div>
     <div class="glow-orb orb-3"></div>
 
-    <!-- Header -->
     <header class="w-full px-6 py-4 flex justify-between items-center relative z-10 glass-card border-x-0 border-t-0 rounded-none mb-8">
         <div class="flex items-center">
             <img src="https://haj.gov.sa/_next/image?url=https%3A%2F%2Fhaj.gov.sa%2Fs-core%2F-%2Fmedia%2FProject%2FHAJJ%2FHajj-Logos%2FFooter-Logo.svg%3Fiar%3D0%26hash%3DB264A0694E67A2E26811BCC3C7B24DD5&w=1920&q=75" 
@@ -328,7 +311,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container mx-auto px-4 pb-12 relative z-10">
         <div class="max-w-4xl mx-auto">
             
@@ -339,12 +321,9 @@
                 <p class="text-gray-300 text-lg">الرجاء إدخال البيانات ورفع الملفات لإتمام عملية الأرشفة التلقائية</p>
             </div>
 
-            <!-- The Form -->
             <form id="archiveForm" class="glass-card rounded-2xl p-6 md:p-10 shadow-2xl">
                 
-                <!-- Main Selects -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                    <!-- Employee Select -->
                     <div class="form-group" id="empGroup">
                         <label class="block text-brand-neon font-semibold mb-2 text-lg"><i class="fa-solid fa-user-tie text-brand-gold ml-2"></i>اسم الموظف</label>
                         <select id="employeeName" name="employeeName" class="native-select-hidden">
@@ -352,7 +331,6 @@
                         </select>
                     </div>
 
-                    <!-- Output Select -->
                     <div class="form-group" id="outGroup">
                         <label class="block text-brand-neon font-semibold mb-2 text-lg"><i class="fa-solid fa-folder-tree text-brand-gold ml-2"></i>المخرج</label>
                         <select id="outputName" name="outputName" class="native-select-hidden">
@@ -361,73 +339,90 @@
                     </div>
                 </div>
 
-                <!-- Dynamic Folders Container -->
                 <div id="dynamicFoldersContainer" class="flex flex-col md:flex-row flex-wrap justify-center items-start gap-6 mb-8 hidden fade-in bg-brand-dark/40 p-5 rounded-xl border border-brand-light/20 relative z-20">
                     
-                    <!-- Level 1 Folder -->
                     <div class="form-group hidden w-full md:flex-1 min-w-[200px] max-w-[320px]" id="lvl1Group">
                         <label class="block text-brand-glow font-semibold mb-2 text-md text-center"><i class="fa-regular fa-folder-open text-brand-gold ml-2"></i>التصنيف الرئيسي</label>
                         <select id="folderLevel1" class="native-select-hidden"></select>
                     </div>
 
-                    <!-- Level 2 Folder -->
                     <div class="form-group hidden w-full md:flex-1 min-w-[200px] max-w-[320px]" id="lvl2Group">
                         <label class="block text-brand-glow font-semibold mb-2 text-md text-center"><i class="fa-regular fa-folder text-brand-gold ml-2"></i>التصنيف الفرعي الأول</label>
                         <select id="folderLevel2" class="native-select-hidden"></select>
                     </div>
 
-                    <!-- Level 3 Folder -->
                     <div class="form-group hidden w-full md:flex-1 min-w-[200px] max-w-[320px]" id="lvl3Group">
                         <label class="block text-brand-glow font-semibold mb-2 text-md text-center"><i class="fa-regular fa-folder text-brand-gold ml-2"></i>التصنيف الفرعي الثاني</label>
                         <select id="folderLevel3" class="native-select-hidden"></select>
                     </div>
+
+                    <!-- Date Picker -->
+                    <div class="form-group hidden w-full md:flex-1 min-w-[200px] max-w-[320px]" id="dateGroup">
+                        <label class="block text-brand-glow font-semibold mb-2 text-md text-center" id="dateGroupLabel"><i class="fa-regular fa-calendar-days text-brand-gold ml-2"></i>تاريخ النسخة</label>
+                        <input type="date" id="versionDate" class="w-full bg-brand-dark/40 border border-brand-light/30 text-white rounded-xl px-4 py-[0.65rem] outline-none focus:border-brand-neon transition-all" style="color-scheme: dark;">
+                    </div>
+
+                    <!-- Location Input -->
+                    <div class="form-group hidden w-full md:flex-1 min-w-[200px] max-w-[320px]" id="locationGroup">
+                        <label class="block text-brand-glow font-semibold mb-2 text-md text-center"><i class="fa-solid fa-location-dot text-brand-gold ml-2"></i>موقع الاجتماع</label>
+                        <input type="text" id="meetingLocation" placeholder="مثال: مقر الوزارة بمنى" class="w-full bg-brand-dark/40 border border-brand-light/30 text-white rounded-xl px-4 py-[0.65rem] outline-none focus:border-brand-neon transition-all placeholder-gray-500">
+                    </div>
                 </div>
 
-                <!-- Universal File Upload -->
                 <div class="form-group relative z-10 mb-10 mt-4">
                     <label class="block text-brand-neon font-semibold mb-3 text-xl text-center">
-                        <i class="fa-solid fa-cloud-arrow-up text-brand-gold ml-2"></i>منطقة رفع الملفات
+                        <i class="fa-solid fa-cloud-arrow-up text-brand-gold ml-2"></i>منطقة رفع الملفات والمجلدات
                     </label>
-                    <div class="file-drop-area rounded-2xl p-10 text-center flex flex-col items-center justify-center min-h-[200px]" onclick="document.getElementById('universalFile').click()">
-                        <div class="w-20 h-20 bg-brand-main rounded-full flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-                            <i class="fa-solid fa-file-circle-plus text-4xl text-brand-glow"></i>
+                    
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="file-drop-area rounded-2xl p-6 text-center flex flex-col items-center justify-center flex-1" onclick="document.getElementById('universalFile').click()">
+                            <div class="w-16 h-16 bg-brand-main rounded-full flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                                <i class="fa-solid fa-file-circle-plus text-3xl text-brand-glow"></i>
+                            </div>
+                            <span class="text-white font-bold text-lg mb-1">إرفاق ملفات</span>
+                            <span class="text-gray-400 text-xs">PDF, CAD, صور، إلخ</span>
+                            <input type="file" id="universalFile" multiple class="file-input">
                         </div>
-                        <span class="text-white font-bold text-xl mb-2" id="universalLabel">اضغط هنا أو اسحب الملفات لإفلاتها</span>
-                        <span class="text-gray-400 text-md">متاح رفع جميع الصيغ (PPTX, PDF, CAD, صور، إلخ) المتعددة معاً</span>
-                        <input type="file" id="universalFile" name="universalFile" multiple class="file-input">
+                        
+                        <div class="file-drop-area rounded-2xl p-6 text-center flex flex-col items-center justify-center flex-1" onclick="document.getElementById('folderFile').click()">
+                            <div class="w-16 h-16 bg-brand-main rounded-full flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                                <i class="fa-solid fa-folder-plus text-3xl text-brand-gold"></i>
+                            </div>
+                            <span class="text-white font-bold text-lg mb-1">إرفاق مجلد كامل</span>
+                            <span class="text-gray-400 text-xs">يحافظ على ترتيب الملفات بداخله</span>
+                            <input type="file" id="folderFile" webkitdirectory directory multiple class="file-input">
+                        </div>
                     </div>
                     
-                    <!-- Selected Files Display -->
+                    <div class="text-center mt-4">
+                        <span class="text-gray-300 text-sm font-medium bg-brand-dark/50 py-1 px-4 rounded-full border border-brand-light/30" id="universalLabel">لم يتم تحديد أي عناصر حتى الآن</span>
+                    </div>
+                    
                     <div id="fileListContainer" class="mt-4 hidden">
-                        <h4 class="text-brand-goldLight text-sm font-bold mb-3"><i class="fa-solid fa-list-check ml-2"></i>الملفات المحددة:</h4>
-                        <div id="filesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-                            <!-- File items will be injected here -->
+                        <h4 class="text-brand-goldLight text-sm font-bold mb-3"><i class="fa-solid fa-list-check ml-2"></i>العناصر المحددة:</h4>
+                        <div id="filesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-56 overflow-y-auto pr-2 custom-scrollbar">
                         </div>
                     </div>
                 </div>
 
-                <!-- Alert Messages -->
                 <div id="alertBox" class="hidden mb-6 p-4 rounded-xl text-center font-bold transition-all duration-300"></div>
 
-                <!-- Progress Bar Container -->
                 <div id="progressContainer" class="hidden w-full mb-6 glass-card p-4 rounded-xl border border-brand-light/30">
                     <div class="flex justify-between mb-2">
-                        <span class="text-brand-goldLight text-sm font-bold" id="progressText">جاري تهيئة الملفات...</span>
+                        <span class="text-brand-goldLight text-sm font-bold" id="progressText">جاري تهيئة البيانات...</span>
                         <span class="text-brand-neon text-sm font-bold" id="progressPercent">0%</span>
                     </div>
                     <div class="w-full bg-brand-dark rounded-full h-3 border border-brand-main">
                         <div id="progressBar" class="bg-gradient-to-l from-brand-gold to-brand-neon h-3 rounded-full relative overflow-hidden" style="width: 0%">
-                            <!-- Shimmer effect on progress bar -->
                             <div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
                 <div class="text-center mt-4">
                     <button type="submit" id="submitBtn" class="btn-neon w-full md:w-auto px-12 py-4 rounded-full text-white font-bold text-xl shadow-lg flex items-center justify-center gap-3 mx-auto">
                         <i class="fa-solid fa-cloud-arrow-up text-brand-goldLight"></i>
-                        <span id="btnText">رفع وأرشفة الملفات</span>
+                        <span id="btnText">رفع وأرشفة المحتوى</span>
                         <div id="btnLoader" class="loader hidden"></div>
                     </button>
                 </div>
@@ -436,17 +431,15 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="w-full text-center py-8 mt-4 relative z-10 glass-card border-x-0 border-b-0 rounded-none">
         <p class="text-gray-300 text-sm md:text-base font-medium mb-2">
-           م/عمرعادل جميع الحقوق محفوظة لفريق الدعم الفني للأرشفة الإلكترونية المحلية ودعم اتخاذ القرار
+            جميع الحقوق محفوظة لفريق الدعم الفني للأرشفة الإلكترونية المحلية ودعم اتخاذ القرار
         </p>
         <p class="text-brand-gold font-bold text-sm md:text-base drop-shadow-md">
             شركة يوروكونسلت مشروع وزارة الحج والعمرة &copy; 2026
         </p>
     </footer>
 
-    <!-- Success Modal Popup -->
     <div id="successModal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-md" onclick="closeModal()"></div>
         <div class="glass-card w-11/12 max-w-md p-8 rounded-2xl relative z-10 text-center transform scale-95 opacity-0 transition-all duration-300 border-2 border-brand-neon" id="modalContent">
@@ -454,7 +447,7 @@
                 <i class="fa-solid fa-check text-4xl text-brand-neon"></i>
             </div>
             <h2 class="text-2xl font-bold text-white mb-2" id="modalTitle">شكراً لك!</h2>
-            <p class="text-gray-300 mb-6 font-medium">تمت أرشفة جميع الملفات بنجاح في المجلدات المخصصة.</p>
+            <p class="text-gray-300 mb-6 font-medium">تمت أرشفة جميع الملفات والمجلدات بنجاح.</p>
             <div class="bg-brand-dark/50 p-4 rounded-xl mb-6 border border-brand-light/40 text-right space-y-2">
                 <p class="text-sm text-brand-goldLight flex items-center justify-between">
                     <span><i class="fa-solid fa-hashtag ml-1"></i> رقم العملية:</span>
@@ -471,7 +464,6 @@
         </div>
     </div>
 
-    <!-- Data and Logic -->
     <script>
         const employees = [
             "د عمرو شحاته", "م احمد فايد", "م رشا مختار", "م علي عليكة", 
@@ -480,129 +472,85 @@
             "م خالد فلمبان", "م بيجاد هشام", "م احمد خالد"
         ];
 
-        // Folder Structure Definition
+        const orderedOutputs = [
+            "تحديث الخريطة التفاعلية الحلول التقنية (موسم حج 1447هـ) وربطها في منصات وزارة الحج والعمرة (Dashboard)",
+            "المشاريع التطويرية المقترحة لزيادة الطاقة الاستيعابية للحجاج وتجويد الخدمات المقدمة لضيوف الرحمن (موسم حج 1447هـ)",
+            "معالجة البيانات وتحديث قاعدة المعلومات الجغرافية طبقا لبيانات وزارة الحج والعمرة الجهات التشغيلية الرصد الميداني) (موسم حج 1447هـ)",
+            "تخصيص مواقع اسكان الحجاج بالمشاعر المقدسة ومتابعة موقف تسليمها لشركات الطوافة (موسم حج 1447هـ)",
+            "اعداد المخططات الهندسية للمشاعر المقدسة (موسم حج 1447هـ)",
+            "توثيق ورصد مدى جاهزية مواقع الاسكان والبنية التحتية والمشاريع التطويرية الجارية بالمشاعر المقدسة (موسم حج 1447 هـ)",
+            "اعداد الدراسات الهندسية لتحديات الحج وتهيئة وتجويد بيئة اسكان الحجاج بالمشاعر المقدسة ( موسم حج 1447هـ)",
+            "التقرير الختامي (موسم حج 1447هـ)",
+            "تطوير الأدلة الاسترشادية ذات العلاقة",
+            "الاجتماعات الدورية"
+        ];
+
         const folderStructure = {
-            "اعداد الدراسات الهندسية لتحديات الحج وتهيئة وتجويد بيئة اسكان الحجاج بالمشاعر المقدسة ( موسم حج 1447هـ)": {
-                "العروض المرئية": null,
-                "ملفات للرفع المساحي": null
+            "تحديث الخريطة التفاعلية الحلول التقنية (موسم حج 1447هـ) وربطها في منصات وزارة الحج والعمرة (Dashboard)": {
+                "الخريطة التفاعلية لمدى جاهزية المشروعات التطويرية الجارية لموسم حج 1447": null,
+                "الخريطة التفاعلية لمدى جاهزية مواقع اسكان الحجاج لموسم حج 1447": null,
+                "الخريطة التفاعلية الأساسية الخاصه بالادارة العامة للمشاعر المقدسة لموسم 1447": null,
+                "الخريطة التفاعلية الخاصة بمؤتمر ومعرض الحج لموسم 1447": null,
+                "الخريطة التفاعلية الخاصه بالعرض على معالي اصحاب الصلاحية": null,
+                "التطبيق المستخدم للرفع الميداني": null
+            },
+            "المشاريع التطويرية المقترحة لزيادة الطاقة الاستيعابية للحجاج وتجويد الخدمات المقدمة لضيوف الرحمن (موسم حج 1447هـ)": {
+                "عروض مرئية": null
+            },
+            "معالجة البيانات وتحديث قاعدة المعلومات الجغرافية طبقا لبيانات وزارة الحج والعمرة الجهات التشغيلية الرصد الميداني) (موسم حج 1447هـ)": {
+                "قاعدة البيانات الجغرافية للمشاعر المقدسة": null 
+            },
+            "تخصيص مواقع اسكان الحجاج بالمشاعر المقدسة ومتابعة موقف تسليمها لشركات الطوافة (موسم حج 1447هـ)": {
+                "مخططات هندسية": {
+                    "تخصيص مواقع اسكان الحجاج": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null },
+                    "تخصيص مواقع الجهات الحكومية": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null },
+                    "مواقع المشاريع التطورية": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null }
+                },
+                "الكروكيات": {
+                    "حجاج داخل": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null },
+                    "حجاج خارج": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفة": null }
+                },
+                "ملفات اكسيل": null
             },
             "اعداد المخططات الهندسية للمشاعر المقدسة (موسم حج 1447هـ)": {
                 "مخططات هندسية": {
-                    "تخصيص اسكان الحجاج": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null
-                    },
-                    "تخصيص الجهات الحكومية": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    },
-                    "تخصيص المشاريع التطورية": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    }
+                    "تخصيص مواقع اسكان الحجاج": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null },
+                    "تخصيص مواقع الجهات الحكومية": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null },
+                    "مواقع المشاريع التطورية": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null }
                 },
                 "الكروكيات": {
-                    "حجاج داخل": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    },
-                    "حجاج خارج": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفة": null
-                    }
+                    "حجاج داخل": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفه": null },
+                    "حجاج خارج": { "مشعر منى": null, "مشعر عرفات": null, "مشعر مزدلفة": null }
                 }
-            },
-            "التقرير الختامي (موسم حج 1447هـ)": {
-                "ملفات مرئية ومستندات": null
-            },
-            "تحديث الخريطة التفاعلية الحلول التقنية (موسم حج 1447هـ) وربطها في منصات وزارة الحج والعمرة (Dashboard)": {
-                "الصور وسكرين شوت": null,
-                "العروض المرئية": null
-            },
-            "المشاريع التطويرية المقترحة لزيادة الطاقة الاستيعابية للحجاج وتجويد الخدمات المقدمة لضيوف الرحمن (موسم حج 1447هـ)": {
-                "عروض مرئية": null
-            },
-            "تخصيص مواقع اسكان الحجاج بالمشاعر المقدسة ومتابعة موقف تسليمها لشركات الطوافة (موسم حج 1447هـ)": {
-                "مخططات هندسية": {
-                    "تخصيص اسكان الحجاج": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null
-                    },
-                    "تخصيص الجهات الحكومية": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    },
-                    "تخصيص المشاريع التطورية": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    }
-                },
-                "الكروكيات": {
-                    "حجاج داخل": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    },
-                    "حجاج خارج": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفة": null
-                    }
-                }
-            },
-            "التقرير الختامي (موسم حج 1447هـ)": {
-                "ملفات مرئية ومستندات": null
-            },
-            "تحديث الخريطة التفاعلية الحلول التقنية (موسم حج 1447هـ) وربطها في منصات وزارة الحج والعمرة (Dashboard)": {
-                "الصور وسكرين شوت": null,
-                "العروض المرئية": null
-            },
-            "المشاريع التطويرية المقترحة لزيادة الطاقة الاستيعابية للحجاج وتجويد الخدمات المقدمة لضيوف الرحمن (موسم حج 1447هـ)": {
-                "عروض مرئية": null
-            },
-            "تخصيص مواقع اسكان الحجاج بالمشاعر المقدسة ومتابعة موقف تسليمها لشركات الطوافة (موسم حج 1447هـ)": {
-                "مخططات هندسية": {
-                    "تخصيص اسكان الحجاج": null,
-                    "تخصيص الجهات الحكومية": null,
-                    "تخصيص المشاريع التطورية": null
-                },
-                "الكروكيات": {
-                    "حجاج داخل": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفه": null
-                    },
-                    "حجاج خارج": {
-                        "مشعر منى": null,
-                        "مشعر عرفات": null,
-                        "مشعر مزدلفة": null
-                    }
-                }
-            },
-            "تطوير الأدلة الاسترشادية ذات العلاقة (موسم حج 1447هـ)": {
-                "مستندات مجمعه كدليل مرجعي للموسم زي REVE3": null
             },
             "توثيق ورصد مدى جاهزية مواقع الاسكان والبنية التحتية والمشاريع التطويرية الجارية بالمشاعر المقدسة (موسم حج 1447 هـ)": {
-                "مدى الجاهزية الكامل من نظام عمر للمساحين": null
+                "مدى جاهزية مواقع اسكان الحجاج": { "عروض مرئية": null, "صور": null },
+                "مدى جاهزية مواقع المشروعات التطويرية الجارية": { "عروض مرئية": null, "صور": null }
             },
-            "معالجة البيانات وتحديث قاعدة المعلومات الجغرافية طبقا لبيانات وزارة الحج والعمرة الجهات التشغيلية الرصد الميداني) (موسم حج 1447هـ)": {
-                "ملفات قاعدة بيانات": null,
-                "عروض مرئية او ملفات اخرى": null
+            "اعداد الدراسات الهندسية لتحديات الحج وتهيئة وتجويد بيئة اسكان الحجاج بالمشاعر المقدسة ( موسم حج 1447هـ)": {
+                "العروض المرئية": null,
+                "ملفات للرفع المساحي": {
+                    "موائمة الرفع المساحي طبقا للادارة العامة للمشاعر المقدسة": { "مشعر منى": null, "مشعر عرفات": null },
+                    "الرفع المساحي طبقا للواقع الفعلي": { "مشعر منى": null, "مشعر عرفات": null }
+                }
+            },
+            "التقرير الختامي (موسم حج 1447هـ)": {
+                "ملفات مرئية ومستندات": null
+            },
+            "تطوير الأدلة الاسترشادية ذات العلاقة": {
+                "الاسترشادات السابقة": null
+            },
+            "الاجتماعات الدورية": {
+                "مناقشة مخرجات اعمال الرفع المساحي": null,
+                "مناقشة اعمال تخصيص مواقع اسكان الحجاج": null,
+                "مناقشة مخرجات التقارير الاسبوعية": null,
+                "مناقشة مدى جاهزية مواقع اسكان الحجاج والمشروعات التطويرية": null,
+                "مناقشة صور من اعمال الرفع المساحي": null
             }
         };
 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkmVIOsZGqqoKcHkeqHaORDgsuHiL-CzZHciSAvFzh3a9UwO91N-cZ4SIV9fTdxc9tUQ/exec';
-
-        // Custom UI Builder for Select Elements
         function buildCustomDropdown(selectId, onChangeCallback) {
             const select = document.getElementById(selectId);
-            // Remove existing custom UI if it exists
             const existingContainer = select.nextElementSibling;
             if (existingContainer && existingContainer.classList.contains('custom-dropdown-container')) {
                 existingContainer.remove();
@@ -639,7 +587,6 @@
                     selectedDisplay.querySelector('i').style.transform = 'rotate(0deg)';
                     container.style.zIndex = '1';
                     
-                    // Trigger change event
                     select.dispatchEvent(new Event('change'));
                     if(onChangeCallback) onChangeCallback();
                 });
@@ -651,7 +598,6 @@
             selectedDisplay.addEventListener('click', (e) => {
                 e.stopPropagation();
                 
-                // Reset z-index for all other containers
                 document.querySelectorAll('.custom-dropdown-container').forEach(c => {
                     if (c !== container) c.style.zIndex = '1';
                 });
@@ -676,12 +622,21 @@
                     optionsList.classList.add('open');
                     selectedDisplay.classList.add('active');
                     selectedDisplay.querySelector('i').style.transform = 'rotate(180deg)';
-                    container.style.zIndex = '50'; // Elevate the opened dropdown
+                    container.style.zIndex = '50';
                 }
             });
         }
 
-        // Initialize Options Helper
+        function populateOutputSelect() {
+            const select = document.getElementById('outputName');
+            select.innerHTML = `<option value="" disabled selected>اختر المخرج الخاص بك...</option>`;
+            orderedOutputs.forEach(key => {
+                let opt = document.createElement('option');
+                opt.value = key; opt.innerHTML = key;
+                select.appendChild(opt);
+            });
+        }
+
         function populateSelect(selectId, optionsObj, placeholder) {
             const select = document.getElementById(selectId);
             select.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
@@ -694,17 +649,19 @@
             }
         }
 
-        // Core Dynamic Logic
         function handleOutputChange() {
             const outVal = document.getElementById('outputName').value;
             const container = document.getElementById('dynamicFoldersContainer');
             const lvl1Group = document.getElementById('lvl1Group');
             const lvl2Group = document.getElementById('lvl2Group');
             const lvl3Group = document.getElementById('lvl3Group');
+            const dateGroup = document.getElementById('dateGroup');
+            const locationGroup = document.getElementById('locationGroup');
 
-            // Reset Sub Folders
             lvl2Group.classList.add('hidden'); document.getElementById('folderLevel2').value = '';
             lvl3Group.classList.add('hidden'); document.getElementById('folderLevel3').value = '';
+            dateGroup.classList.add('hidden'); document.getElementById('versionDate').value = '';
+            locationGroup.classList.add('hidden'); document.getElementById('meetingLocation').value = '';
 
             if (outVal && folderStructure[outVal]) {
                 container.classList.remove('hidden');
@@ -722,8 +679,28 @@
             const lvl1Val = document.getElementById('folderLevel1').value;
             const lvl2Group = document.getElementById('lvl2Group');
             const lvl3Group = document.getElementById('lvl3Group');
+            const dateGroup = document.getElementById('dateGroup');
+            const locationGroup = document.getElementById('locationGroup');
+            const dateLabel = document.getElementById('dateGroupLabel');
 
             lvl3Group.classList.add('hidden'); document.getElementById('folderLevel3').value = '';
+            dateGroup.classList.add('hidden'); document.getElementById('versionDate').value = '';
+            locationGroup.classList.add('hidden'); document.getElementById('meetingLocation').value = '';
+
+            if (outVal === "معالجة البيانات وتحديث قاعدة المعلومات الجغرافية طبقا لبيانات وزارة الحج والعمرة الجهات التشغيلية الرصد الميداني) (موسم حج 1447هـ)" && lvl1Val === "قاعدة البيانات الجغرافية للمشاعر المقدسة") {
+                dateLabel.innerHTML = '<i class="fa-regular fa-calendar-days text-brand-gold ml-2"></i>تاريخ النسخة';
+                dateGroup.classList.remove('hidden');
+                lvl2Group.classList.add('hidden'); 
+                return;
+            }
+
+            if (outVal === "الاجتماعات الدورية") {
+                dateLabel.innerHTML = '<i class="fa-regular fa-calendar-days text-brand-gold ml-2"></i>تاريخ الاجتماع';
+                dateGroup.classList.remove('hidden');
+                locationGroup.classList.remove('hidden');
+                lvl2Group.classList.add('hidden'); 
+                return;
+            }
 
             const subObj = folderStructure[outVal][lvl1Val];
             if (subObj && typeof subObj === 'object') {
@@ -751,17 +728,13 @@
             }
         }
 
-        // On Load Init
         window.onload = () => {
-            // Populate Employees
             populateSelect('employeeName', Object.fromEntries(employees.map(e => [e, null])), 'اختر اسم المهندس/الموظف...');
             buildCustomDropdown('employeeName');
 
-            // Populate Outputs
-            populateSelect('outputName', folderStructure, 'اختر المخرج الخاص بك...');
+            populateOutputSelect(); 
             buildCustomDropdown('outputName', handleOutputChange);
 
-            // Close dropdowns on outside click
             document.addEventListener('click', () => {
                 document.querySelectorAll('.custom-dropdown-options').forEach(list => list.classList.remove('open'));
                 document.querySelectorAll('.custom-dropdown-selected').forEach(box => {
@@ -772,144 +745,129 @@
             });
         };
 
-        // File Input Handler
+        let allSelectedFiles = [];
+
         const fileInput = document.getElementById('universalFile');
+        const folderInput = document.getElementById('folderFile');
         const fileListContainer = document.getElementById('fileListContainer');
         const filesGrid = document.getElementById('filesGrid');
         const universalLabel = document.getElementById('universalLabel');
 
-        fileInput.addEventListener('change', function() {
-            if (this.files && this.files.length > 0) {
+        window.removeSelectedItem = function(itemKey) {
+            allSelectedFiles = allSelectedFiles.filter(file => {
+                let isFolder = file.webkitRelativePath && file.webkitRelativePath.includes('/');
+                let currentItemKey = isFolder ? file.webkitRelativePath.split('/')[0] : file.name;
+                return currentItemKey !== itemKey;
+            });
+            
+            fileInput.value = '';
+            folderInput.value = '';
+            
+            updateFilesUI();
+        };
+
+        function handleFilesAdded(newFiles) {
+            if (newFiles && newFiles.length > 0) {
                 document.getElementById('alertBox').classList.add('hidden');
-                universalLabel.innerHTML = `<span class="text-brand-goldLight">تم اختيار ${this.files.length} ملفات بنجاح</span>`;
                 
-                filesGrid.innerHTML = ''; // Clear previous
-                fileListContainer.classList.remove('hidden');
+                Array.from(newFiles).forEach(file => allSelectedFiles.push(file));
+                updateFilesUI();
+            }
+        }
 
-                Array.from(this.files).forEach(file => {
-                    const ext = file.name.split('.').pop().toUpperCase();
-                    let icon = 'fa-file';
-                    let color = 'text-gray-400';
-                    
-                    if(['PDF'].includes(ext)) { icon = 'fa-file-pdf'; color = 'text-red-400'; }
-                    else if(['PPTX', 'PPT'].includes(ext)) { icon = 'fa-file-powerpoint'; color = 'text-orange-400'; }
-                    else if(['DWG', 'DXF'].includes(ext)) { icon = 'fa-file-code'; color = 'text-blue-400'; }
-                    else if(['JPG', 'JPEG', 'PNG'].includes(ext)) { icon = 'fa-image'; color = 'text-purple-400'; }
-                    else if(['DOC', 'DOCX'].includes(ext)) { icon = 'fa-file-word'; color = 'text-blue-500'; }
-                    else if(['XLS', 'XLSX'].includes(ext)) { icon = 'fa-file-excel'; color = 'text-green-500'; }
-
-                    const size = (file.size / (1024*1024)).toFixed(2);
-
-                    const fileHTML = `
-                        <div class="file-item rounded-lg p-3 flex items-center gap-3">
-                            <i class="fa-solid ${icon} ${color} text-2xl"></i>
-                            <div class="overflow-hidden flex-1">
-                                <p class="text-white text-sm truncate font-medium" title="${file.name}">${file.name}</p>
-                                <p class="text-gray-400 text-xs">${ext} • ${size} MB</p>
-                            </div>
-                        </div>
-                    `;
-                    filesGrid.insertAdjacentHTML('beforeend', fileHTML);
-                });
-
-            } else {
-                universalLabel.innerHTML = 'اضغط هنا أو اسحب الملفات لإفلاتها';
+        function updateFilesUI() {
+            filesGrid.innerHTML = '';
+            
+            if (allSelectedFiles.length === 0) {
+                universalLabel.innerHTML = 'لم يتم تحديد أي عناصر حتى الآن';
                 fileListContainer.classList.add('hidden');
-                filesGrid.innerHTML = '';
+                return;
             }
-        });
+            
+            fileListContainer.classList.remove('hidden');
 
-        // Drag and Drop
-        const dropArea = document.querySelector('.file-drop-area');
-        dropArea.addEventListener('dragover', (e) => { e.preventDefault(); dropArea.classList.add('dragover'); });
-        dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
-        dropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropArea.classList.remove('dragover');
-            if(e.dataTransfer.files.length > 0) {
-                fileInput.files = e.dataTransfer.files;
-                fileInput.dispatchEvent(new Event('change'));
-            }
+            let displayItems = {};
+            
+            allSelectedFiles.forEach(file => {
+                let isFolder = file.webkitRelativePath && file.webkitRelativePath.includes('/');
+                let key = isFolder ? file.webkitRelativePath.split('/')[0] : file.name;
+                
+                if (!displayItems[key]) {
+                    displayItems[key] = {
+                        name: key,
+                        isFolder: isFolder,
+                        count: 0,
+                        size: 0,
+                        ext: isFolder ? 'مجلد' : file.name.split('.').pop().toUpperCase()
+                    };
+                }
+                displayItems[key].count++;
+                displayItems[key].size += file.size;
+            });
+
+            const totalDisplayCount = Object.keys(displayItems).length;
+            universalLabel.innerHTML = `تم تحديد <span class="text-brand-glow font-bold mx-1">${totalDisplayCount}</span> عنصر للرفع (الإجمالي: ${allSelectedFiles.length} ملف)`;
+
+            Object.values(displayItems).forEach(item => {
+                let icon = 'fa-file';
+                let color = 'text-gray-400';
+                
+                if (item.isFolder) {
+                    icon = 'fa-folder-open';
+                    color = 'text-yellow-400';
+                } else {
+                    if(['PDF'].includes(item.ext)) { icon = 'fa-file-pdf'; color = 'text-red-400'; }
+                    else if(['PPTX', 'PPT'].includes(item.ext)) { icon = 'fa-file-powerpoint'; color = 'text-orange-400'; }
+                    else if(['DWG', 'DXF'].includes(item.ext)) { icon = 'fa-file-code'; color = 'text-blue-400'; }
+                    else if(['JPG', 'JPEG', 'PNG'].includes(item.ext)) { icon = 'fa-image'; color = 'text-purple-400'; }
+                    else if(['DOC', 'DOCX'].includes(item.ext)) { icon = 'fa-file-word'; color = 'text-blue-500'; }
+                    else if(['XLS', 'XLSX', 'CSV'].includes(item.ext)) { icon = 'fa-file-excel'; color = 'text-green-500'; }
+                }
+
+                const sizeMB = (item.size / (1024*1024)).toFixed(2);
+                const extraInfo = item.isFolder ? `<span class="text-brand-goldLight">${item.count} ملفات</span> • ${sizeMB} MB` : `${item.ext} • ${sizeMB} MB`;
+                const safeName = item.name.replace(/'/g, "\\'");
+
+                const fileHTML = `
+                    <div class="file-item rounded-lg p-3 flex items-center gap-3 border border-brand-light/30 bg-brand-dark/50 relative group">
+                        <button type="button" onclick="removeSelectedItem('${safeName}')" class="absolute top-2 left-2 text-red-400 hover:text-white bg-red-500/20 hover:bg-red-500 rounded-full w-7 h-7 flex items-center justify-center transition-all duration-200 z-10" title="إزالة هذا العنصر">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        
+                        <i class="fa-solid ${icon} ${color} text-3xl drop-shadow-md"></i>
+                        <div class="overflow-hidden flex-1 pl-6">
+                            <p class="text-white text-sm truncate font-bold" title="${item.name}">${item.name}</p>
+                            <p class="text-gray-400 text-xs mt-1">${extraInfo}</p>
+                        </div>
+                    </div>
+                `;
+                filesGrid.insertAdjacentHTML('beforeend', fileHTML);
+            });
+        }
+
+        fileInput.addEventListener('change', function() { handleFilesAdded(this.files); });
+        folderInput.addEventListener('change', function() { handleFilesAdded(this.files); });
+
+        const dropAreas = document.querySelectorAll('.file-drop-area');
+        dropAreas.forEach(dropArea => {
+            dropArea.addEventListener('dragover', (e) => { e.preventDefault(); dropArea.classList.add('dragover'); });
+            dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.classList.remove('dragover');
+                if(e.dataTransfer.files.length > 0) {
+                    handleFilesAdded(e.dataTransfer.files);
+                }
+            });
         });
 
         const showAlert = (msg, type) => {
             const box = document.getElementById('alertBox');
             box.innerHTML = msg;
-            box.className = `mb-6 p-4 rounded-xl text-center font-bold transition-all duration-300 block ${type === 'success' ? 'bg-green-500/20 text-green-400 border border-green-500' : 'bg-red-500/20 text-red-400 border border-red-500'}`;
+            // إضافة خاصية إظهار المحتوى الطويل (لإظهار قائمة الملفات الفاشلة)
+            box.className = `mb-6 p-4 rounded-xl font-bold transition-all duration-300 block ${type === 'success' ? 'bg-green-500/20 text-green-400 border border-green-500 text-center' : 'bg-red-500/20 text-red-400 border border-red-500 text-right'}`;
         };
 
-        // File to Base64 AND Append Employee Name
-        const getBase64WithEmployeeName = (file, employeeName) => {
-            return new Promise((resolve, reject) => {
-                if (!file) { resolve(null); return; }
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => {
-                    // Rename Logic
-                    const originalName = file.name;
-                    const lastDotIndex = originalName.lastIndexOf('.');
-                    let newName = originalName;
-                    
-                    if (lastDotIndex !== -1) {
-                        const baseName = originalName.substring(0, lastDotIndex);
-                        const ext = originalName.substring(lastDotIndex);
-                        newName = `${baseName} - ${employeeName}${ext}`;
-                    } else {
-                        newName = `${originalName} - ${employeeName}`;
-                    }
-
-                    resolve({
-                        name: newName,
-                        mimeType: file.type,
-                        data: reader.result.split(',')[1]
-                    });
-                };
-                reader.onerror = error => reject(error);
-            });
-        };
-
-        const getBase64Array = async (fileList, employeeName) => {
-            if (!fileList || fileList.length === 0) return [];
-            const promises = Array.from(fileList).map(file => getBase64WithEmployeeName(file, employeeName));
-            return Promise.all(promises);
-        };
-
-        // Progress Animation
-        let progressInterval;
-        function startProgress() {
-            const container = document.getElementById('progressContainer');
-            const bar = document.getElementById('progressBar');
-            const pct = document.getElementById('progressPercent');
-            const txt = document.getElementById('progressText');
-            
-            container.classList.remove('hidden');
-            let width = 0;
-            bar.style.width = '0%';
-            
-            progressInterval = setInterval(() => {
-                if (width >= 90) clearInterval(progressInterval);
-                else {
-                    const increment = width > 70 ? Math.random() * 2 : Math.random() * 8;
-                    width += increment;
-                    if(width > 90) width = 90;
-                    bar.style.width = width + '%';
-                    pct.innerText = Math.floor(width) + '%';
-                    
-                    if(width < 30) txt.innerText = 'جاري ضغط ومعالجة الملفات...';
-                    else if(width < 60) txt.innerText = 'جاري تطبيق الإعدادات وتسمية الملفات...';
-                    else txt.innerText = 'جاري الرفع والتوثيق...';
-                }
-            }, 500);
-        }
-
-        function finishProgress() {
-            clearInterval(progressInterval);
-            document.getElementById('progressBar').style.width = '100%';
-            document.getElementById('progressPercent').innerText = '100%';
-            document.getElementById('progressText').innerText = 'اكتملت العملية!';
-        }
-
-        // Modal Handlers
         function showModal(empName) {
             const modal = document.getElementById('successModal');
             const content = document.getElementById('modalContent');
@@ -937,46 +895,75 @@
             }, 300);
         }
 
-        // Helper to mark validation error
         function highlightError(elementId) {
             const select = document.getElementById(elementId);
             const container = select.nextElementSibling;
             if (container && container.classList.contains('custom-dropdown-container')) {
                 const display = container.querySelector('.custom-dropdown-selected');
                 display.classList.remove('error');
-                void display.offsetWidth; // trigger reflow
+                void display.offsetWidth;
                 display.classList.add('error');
             }
         }
 
-        // Form Submission
+        // =================================================================
+        // نظام الرفع المتسلسل الذكي مع "الإصلاح الذاتي" (Auto-Retry)
+        // =================================================================
         document.getElementById('archiveForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const empVal = document.getElementById('employeeName').value;
             const outVal = document.getElementById('outputName').value;
             const lvl1Val = document.getElementById('folderLevel1').value;
-            const lvl2Val = document.getElementById('folderLevel2').value;
+            let lvl2Val = document.getElementById('folderLevel2').value;
             const lvl3Val = document.getElementById('folderLevel3').value;
+            const dateGroup = document.getElementById('dateGroup');
+            const versionDate = document.getElementById('versionDate');
+            const locationGroup = document.getElementById('locationGroup');
+            const meetingLocation = document.getElementById('meetingLocation');
             
             let hasError = false;
             
-            // Validation
             if(!empVal) { highlightError('employeeName'); hasError = true; }
             if(!outVal) { highlightError('outputName'); hasError = true; }
             
             if (outVal && folderStructure[outVal] && !lvl1Val) { highlightError('folderLevel1'); hasError = true; }
-            if (lvl1Val && folderStructure[outVal][lvl1Val] && !lvl2Val) { highlightError('folderLevel2'); hasError = true; }
-            if (lvl2Val && folderStructure[outVal][lvl1Val][lvl2Val] && !lvl3Val) { highlightError('folderLevel3'); hasError = true; }
+            if (lvl1Val && folderStructure[outVal][lvl1Val] && !lvl2Val && dateGroup.classList.contains('hidden')) { highlightError('folderLevel2'); hasError = true; }
+            if (lvl2Val && folderStructure[outVal][lvl1Val][lvl2Val] && !lvl3Val && dateGroup.classList.contains('hidden')) { highlightError('folderLevel3'); hasError = true; }
 
-            if(hasError) {
-                showAlert('<i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء تعبئة كافة التصنيفات والمسارات المطلوبة.', 'error');
+            if (!dateGroup.classList.contains('hidden')) {
+                if (!versionDate.value) {
+                    showAlert('<div class="text-center"><i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء تحديد التاريخ.</div>', 'error');
+                    hasError = true;
+                    versionDate.classList.add('border-red-500');
+                    setTimeout(() => versionDate.classList.remove('border-red-500'), 3000);
+                }
+
+                if (!locationGroup.classList.contains('hidden') && !meetingLocation.value.trim()) {
+                    showAlert('<div class="text-center"><i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء تحديد موقع الاجتماع.</div>', 'error');
+                    hasError = true;
+                    meetingLocation.classList.add('border-red-500');
+                    setTimeout(() => meetingLocation.classList.remove('border-red-500'), 3000);
+                }
+
+                if (!hasError) {
+                    if (!locationGroup.classList.contains('hidden')) {
+                        lvl2Val = versionDate.value + ' - ' + meetingLocation.value.trim();
+                    } else {
+                        lvl2Val = versionDate.value;
+                    }
+                }
+            }
+
+            if(hasError && dateGroup.classList.contains('hidden')) {
+                showAlert('<div class="text-center"><i class="fa-solid fa-triangle-exclamation ml-2"></i> الرجاء تعبئة كافة التصنيفات والمسارات المطلوبة.</div>', 'error');
+                return;
+            } else if (hasError) {
                 return;
             }
 
-            const filesToUpload = document.getElementById('universalFile').files;
-            if (filesToUpload.length === 0) {
-                showAlert('<i class="fa-solid fa-box-open ml-2"></i> لم تقم بتحديد أي ملف! الرجاء إرفاق ملف واحد على الأقل.', 'error');
+            if (allSelectedFiles.length === 0) {
+                showAlert('<div class="text-center"><i class="fa-solid fa-box-open ml-2"></i> لم تقم بتحديد أي ملف أو مجلد!</div>', 'error');
                 return;
             }
 
@@ -986,67 +973,121 @@
             const alertBox = document.getElementById('alertBox');
             
             btn.disabled = true;
-            btnText.innerText = 'جاري التنفيذ...';
+            btnText.innerText = 'جاري المعالجة والرفع...';
             loader.classList.remove('hidden');
             alertBox.classList.add('hidden');
             
-            startProgress();
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressText = document.getElementById('progressText');
+            
+            progressContainer.classList.remove('hidden');
+            progressBar.style.width = '0%';
+            progressPercent.innerText = '0%';
 
-            try {
-                // Process files and rename them with employee name
-                const processedFiles = await getBase64Array(filesToUpload, empVal);
+            let successCount = 0;
+            let failCount = 0;
+            let failedFilesNames = []; // مصفوفة لتخزين أسماء الملفات التي فشلت فعلياً
+            const totalFiles = allSelectedFiles.length;
 
-                const formData = {
-                    employee: empVal,
-                    output: outVal,
-                    folderLevel1: lvl1Val || '',
-                    folderLevel2: lvl2Val || '',
-                    folderLevel3: lvl3Val || '',
-                    files: processedFiles // Unified files array
-                };
-
-                // Backend request (Keep no-cors for Google Script Apps unless configured properly)
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', 
-                    cache: 'no-cache',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                finishProgress();
+            // حلقة الرفع المتسلسل مع الإنعاش الذاتي
+            for(let i = 0; i < totalFiles; i++) {
+                const file = allSelectedFiles[i];
                 
+                progressText.innerText = `جاري رفع (${i + 1}/${totalFiles}): ${file.name.substring(0, 30)}...`;
+                
+                const formData = new FormData();
+                formData.append('employee', empVal);
+                formData.append('output', outVal);
+                formData.append('folderLevel1', lvl1Val || '');
+                formData.append('folderLevel2', lvl2Val || '');
+                formData.append('folderLevel3', lvl3Val || '');
+                
+                formData.append('universalFile', file, file.name); 
+                const filePath = file.webkitRelativePath ? file.webkitRelativePath : file.name;
+                formData.append('filePaths', filePath);
+
+                let uploadSuccess = false;
+                let retryCount = 0;
+                const maxRetries = 3; // المحاولة 3 مرات قبل إعلان الفشل النهائي للملف
+
+                while (!uploadSuccess && retryCount < maxRetries) {
+                    try {
+                        const response = await fetch('/upload', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            uploadSuccess = true;
+                            successCount++;
+                        } else {
+                            retryCount++;
+                            if (retryCount === maxRetries) {
+                                failCount++;
+                                failedFilesNames.push(filePath); // حفظ اسم الملف/المسار الذي فشل
+                            } else {
+                                // الانتظار ثانية واحدة قبل إعادة المحاولة (في حالة وجود ضغط على السيرفر)
+                                await new Promise(r => setTimeout(r, 1000));
+                            }
+                        }
+                    } catch (error) {
+                        retryCount++;
+                        if (retryCount === maxRetries) {
+                            failCount++;
+                            failedFilesNames.push(filePath);
+                        } else {
+                            await new Promise(r => setTimeout(r, 1000));
+                        }
+                    }
+                }
+
+                // تحديث النسبة المئوية بعد تخطي هذا الملف (سواء نجح أو استنفد محاولاته)
+                const percent = Math.round(((i + 1) / totalFiles) * 100);
+                progressBar.style.width = percent + '%';
+                progressPercent.innerText = percent + '%';
+            }
+
+            btn.disabled = false;
+            btnText.innerText = 'رفع وأرشفة المحتوى';
+            loader.classList.add('hidden');
+
+            // تقييم النتيجة النهائية بعد انتهاء الطابور
+            if (successCount === totalFiles) {
+                progressText.innerText = 'اكتملت العملية بنجاح 100%!';
                 setTimeout(() => {
                     showModal(empVal);
-                    
-                    // Reset Form
                     document.getElementById('archiveForm').reset();
-                    fileListContainer.classList.add('hidden');
-                    filesGrid.innerHTML = '';
-                    universalLabel.innerHTML = 'اضغط هنا أو اسحب الملفات لإفلاتها';
+                    allSelectedFiles = []; 
+                    updateFilesUI(); 
                     document.getElementById('dynamicFoldersContainer').classList.add('hidden');
                     
-                    // Reset custom dropdowns text
-                    document.querySelectorAll('.custom-dropdown-selected span').forEach((span, i) => {
+                    document.querySelectorAll('.custom-dropdown-selected span').forEach(span => {
                         span.className = "truncate text-gray-300";
                     });
                     buildCustomDropdown('employeeName');
                     buildCustomDropdown('outputName', handleOutputChange);
                 }, 800);
-
-            } catch (error) {
-                console.error(error);
-                clearInterval(progressInterval);
+            } else if (successCount > 0) {
+                // إظهار تنبيه مفصل بأسماء الملفات التي سقطت من الشبكة
+                let failedListHtml = failedFilesNames.map(name => `<li class="text-sm mt-1" dir="ltr">${name}</li>`).join('');
+                let detailedError = `
+                    <div class="text-right">
+                        <p class="text-lg mb-2"><i class="fa-solid fa-triangle-exclamation ml-2"></i> تم رفع <strong>${successCount}</strong> ملف بنجاح في السيرفر.</p>
+                        <p class="text-md text-red-200 mb-2">للأسف فشل رفع <strong>${failCount}</strong> ملفات بسبب انقطاع الشبكة، يرجى إعادة رفعهم وحدهم:</p>
+                        <ul class="list-disc pr-6 max-h-40 overflow-y-auto bg-red-900/30 p-3 rounded-lg border border-red-500/30">
+                            ${failedListHtml}
+                        </ul>
+                    </div>
+                `;
+                showAlert(detailedError, 'error');
+            } else {
                 document.getElementById('progressContainer').classList.add('hidden');
-                showAlert('<i class="fa-solid fa-triangle-exclamation ml-2"></i> حدث خطأ أثناء الرفع. تأكد من اتصالك بالانترنت والمحاولة مرة أخرى.', 'error');
-            } finally {
-                btn.disabled = false;
-                btnText.innerText = 'رفع وأرشفة الملفات';
-                loader.classList.add('hidden');
+                showAlert('<div class="text-center"><i class="fa-solid fa-xmark ml-2"></i> فشل الاتصال بالسيرفر تماماً. تأكد من عمل السيرفر والشبكة.</div>', 'error');
             }
         });
 
-        // Background Particles
         particlesJS('particles-js', {
             "particles": {
                 "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
